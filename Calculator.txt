@@ -1,0 +1,226 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+namespace calc
+{
+    public partial class Form1 : Form
+    {
+        double memory, operand1, operand2, answer;
+        int flag = 0, ms = 0, m = 0, mcount = 0;
+        char ope;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        private void setoperand2()
+        {
+            operand2 = Convert.ToDouble(textBox1.Text);
+            calculate(ope);
+        }
+        private void setms()
+        {
+            if (ms == 1)
+            {
+                if (mcount == 1)
+                {
+                    textBox1.Text = "";
+                    mcount = 0;
+                }
+                if (m == 1)
+                {
+                    textBox1.Text = "";
+                    m = 0;
+                }
+            }
+        }
+        private void print(double s)
+        {
+            if (textBox1.Text == "0")
+            {
+                textBox1.Text = Convert.ToString(s);
+            }
+            else
+            {
+                setms();
+                textBox1.Text = textBox1.Text + Convert.ToString(s);
+            }
+            if (flag == 1)
+            {
+                setoperand2();
+            }
+        }
+        private void setoper(char sign)
+        {
+            flag = 1;
+            operand1 = Convert.ToDouble(textBox1.Text);
+            textBox1.Text = "";
+            ope = sign;
+        }
+        private void calculate(char ope)
+        {
+            switch (ope)
+            {
+                case '+':
+                    answer =operand1 + operand2;
+                    break;
+                case '=':
+                    textBox1.Text = Convert.ToString(answer);
+                    break;
+                case '-':
+                    answer = operand1 - operand2;
+                    break;
+                case '*':
+                    answer = operand1 * operand2;
+                    break;
+                case '/':
+                    answer = operand1 / operand2;
+                    break;
+                case '%':
+                    answer = operand1 * operand2 * operand2 / 100;
+                    textBox1.Text = Convert.ToString(answer);
+                    break;
+            }
+        }
+        private void buttonplus_Click(object sender, EventArgs e)
+        {
+            setoper('+');
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            setoper('*');
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            print(3);
+        }
+        private void button_9_Click(object sender, EventArgs e)
+        {
+            print(9);
+        }
+        private void buttondot_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = textBox1.Text + ".";
+        }
+        private void button_2_Click(object sender, EventArgs e)
+        {
+            print(2);
+        }
+        private void button_0_Click(object sender, EventArgs e)
+        {
+            print(0);
+        }
+        private void buttonminus_Click(object sender, EventArgs e)
+        {
+            setoper('-');
+        }
+        private void button_1_Click(object sender, EventArgs e)
+        {
+            print(1);
+        }
+        private void buttondiv_Click(object sender, EventArgs e)
+        {
+            setoper('/');
+        }
+        private void button_4_Click(object sender, EventArgs e)
+        {
+            print(4);
+        }
+        private void button_5_Click(object sender, EventArgs e)
+        {
+            print(5);
+        }
+        private void button_6_Click(object sender, EventArgs e)
+        {
+            print(6);
+        }
+        private void buttonmod_Click(object sender, EventArgs e)
+        {
+            operand1 = answer;
+            calculate('%');
+        }
+        private void button_7_Click(object sender, EventArgs e)
+        {
+            print(7);
+        }
+        private void button_8_Click(object sender, EventArgs e)
+        {
+            print(8);
+        }
+        private void buttonsqrt_Click(object sender, EventArgs e)
+        {
+            operand1 = Convert.ToDouble(textBox1.Text);
+            textBox1.Text = Convert.ToString(System.Math.Sqrt(operand1));
+        }
+        private void buttonsqr2_Click(object sender, EventArgs e)
+        {
+            operand1 = Convert.ToDouble(textBox1.Text);
+            textBox1.Text = Convert.ToString(operand1 * operand1);
+        }
+        private void buttoninv_Click(object sender, EventArgs e)
+        {
+            operand1 = Convert.ToDouble(textBox1.Text);
+            textBox1.Text = Convert.ToString(1 / operand1);
+        }
+        private void buttonequal_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            calculate('=');
+        }
+        private void buttonmplus_Click(object sender, EventArgs e)
+        {
+            if (ms == 1)
+            {
+                memory = Convert.ToDouble(textBox1.Text) + memory;
+                m = 1;
+            }
+        }
+        private void buttonmminus_Click(object sender, EventArgs e)
+        {
+            if (ms == 1)
+            {
+                memory = memory - Convert.ToDouble(textBox1.Text);
+                m = 1;
+            }
+        }
+        private void buttonmr_Click(object sender, EventArgs e)
+        {
+            if (ms == 1)
+            {
+                textBox1.Text = Convert.ToString(memory);
+            }
+        }
+        private void buttonms_Click(object sender, EventArgs e)
+        {
+            ms = 1;
+            mcount = 1;
+            memory = Convert.ToDouble(textBox1.Text);
+        }
+        private void buttonmc_Click(object sender, EventArgs e)
+        {
+            memory = 0;
+            ms = 0;
+        }
+        private void buttonce_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = Convert.ToString((-1) * Convert.ToDouble(textBox1.Text));
+        }
+        private void buttonc_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "0";
+        }
+         private void buttonx_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1, 1);
+            if (textBox1.Text == "")
+            {
+                textBox1.Text = "0";
+            }
+        }
+    }
+}
